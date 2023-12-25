@@ -1,0 +1,87 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="script.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Metro Sync</title>
+</head>
+
+<body>
+<!--This is the Navbar-->
+    <nav>
+     <div id="bar">
+      <a href="index.html">
+      <img src="imgs/MTA_NYC_logo.svg.png" class="Logo" alt="MTA Logo" width="32" height="30">
+      </a>
+     </div>
+     <ul>
+      <li><a href="About.html">About</a></li>
+      <li><a href="feedback.html">Feedback</a></li>
+     </ul>
+    </nav>
+
+
+    <h1 id="header">METRO SYNC</h1>
+
+    <h1 id="header">Real-time Subway Information</h1>
+    <div id="subway-info">
+        <!-- Display subway information here -->
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Make AJAX requests to Flask API endpoints
+            $.ajax({
+                url: "https://ec2-54-234-95-53.compute-1.amazonaws.com/", // Endpoint 1
+                type: "GET",
+                success: function (data) {
+                    console.log(data);
+                    // Process the response data here
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error:", error);
+                }
+            });
+
+            $.ajax({
+                url: "https://ec2-54-234-95-53.compute-1.amazonaws.com/by-location", // Endpoint 2
+                type: "GET",
+                data: { lat: 40.7128, lon: -74.0060 }, // Example location data
+                success: function (data) {
+                    console.log(data);
+                    // Process the response data here
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error:", error);
+                }
+            });
+
+            $.ajax({
+                url: "https://ec2-54-234-95-53.compute-1.amazonaws.com/by-route/some_route", // Endpoint 3
+                type: "GET",
+                success: function (data) {
+                    console.log(data);
+                    // Process the response data here
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error:", error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+   
+
+
+
+
+
