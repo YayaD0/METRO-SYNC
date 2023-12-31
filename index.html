@@ -1,0 +1,117 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="script.js"></script>
+    <title>MetroSync</title>
+</head>
+
+<body>
+<!--This is the Navbar-->
+    <nav>
+     <div id="bar">
+      <a href="index.html">
+      <img src="MetroSync_Logo.png" class="Logo" alt="MTA Logo" width="80" height="80">
+      </a>
+     </div>
+     <ul>
+      <li><a href="About.html">About MetroSync</a></li>
+     </ul>
+    </nav>
+
+
+    <h1 id="header">MetroSync</h1>
+
+    <h1 id="header2">Real-time Subway Information</h1>
+    <div id="subway-info">
+        <!-- Display subway information here -->
+    </div>
+
+    <div class="footer">© 2023 Yaya Doumbia | <a href="https://yayad0.github.io/" class="link">Portfolio</a> |
+    <a href="https://github.com/YayaD0" class="link">Github</a> | <a href="https://www.linkedin.com/in/yayad0/"
+     class="link">Linkedin</a> </div>
+
+</body>
+
+<script>
+    fetch('https://chefcops.com/by-location?lat=40.725915&lon=-73.994659')
+        .then(response => response.json())
+        .then(data => {
+            console.log('Data by location:', data);
+            displaySubwayInfo(data); // Call the display function here
+        })
+        .catch(error => {
+            console.error('Error fetching data by location:', error);
+        });
+
+        function displaySubwayInfo(data) {
+    const subwayInfoDiv = document.getElementById('subway-info');
+
+    // Create elements to display data
+    const header = document.createElement('h2');
+    header.textContent = 'Subway Information';
+    subwayInfoDiv.appendChild(header);
+
+    // Check if 'data' contains the expected properties
+    if (data && Array.isArray(data)) {
+        data.forEach(station => {
+            const stationDiv = document.createElement('div');
+            stationDiv.classList.add('station');
+
+            // Station name and last updated time
+            const stationHeader = document.createElement('h3');
+            stationHeader.textContent = station.name;
+            stationDiv.appendChild(stationHeader);
+
+            const lastUpdated = document.createElement('p');
+            lastUpdated.textContent = `Last Updated: ${new Date(station.last_update).toLocaleString()}`;
+            stationDiv.appendChild(lastUpdated);
+
+            // Displaying routes and respective times
+            const routesList = document.createElement('ul');
+            station.routes.forEach(route => {
+                const routeItem = document.createElement('li');
+                routeItem.textContent = `${route} - `;
+                
+                // Fetch and display times for each route
+                const routeTimes = station.N.concat(station.S)
+                    .filter(train => train.route === route)
+                    .map(train => new Date(train.time).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }));
+                
+                routeItem.textContent += routeTimes.join(', ');
+                routesList.appendChild(routeItem);
+            });
+            stationDiv.appendChild(routesList);
+
+            subwayInfoDiv.appendChild(stationDiv);
+        });
+    } else {
+        const errorMessage = document.createElement('p');
+        errorMessage.textContent = 'Failed to fetch subway information';
+        subwayInfoDiv.appendChild(errorMessage);
+    }
+}
+
+</script>
+
+
+
+</script>
+
+</body>
+</html>
+
+
+ 
+</html>
+   
+
+
+
+
+
