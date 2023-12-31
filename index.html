@@ -1,0 +1,75 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="script.js"></script>
+    <title>MetroSync</title>
+</head>
+
+<body>
+<!--This is the Navbar-->
+    <nav>
+     <div id="bar">
+      <a href="index.html">
+      <img src="MetroSync_Logo.png" class="Logo" alt="MTA Logo" width="80" height="80">
+      </a>
+     </div>
+     <ul>
+      <li><a href="About.html">About MetroSync</a></li>
+     </ul>
+    </nav>
+
+
+    <h1 id="header">MetroSync</h1>
+
+    <h1 id="header2">Real-time Subway Information</h1>
+    <div id="subway-info">
+        <!-- Display subway information here -->
+    </div>
+
+    <div class="footer">© 2023 Yaya Doumbia | <a href="https://yayad0.github.io/" class="link">Portfolio</a> |
+    <a href="https://github.com/YayaD0" class="link">Github</a> | <a href="https://www.linkedin.com/in/yayad0/"
+     class="link">Linkedin</a> </div>
+
+</body>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $.ajax({
+        url: 'https://chefcops.com/routes',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            console.log(data.routes); // Handle the received route information here
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
+        }
+    });
+</script>
+
+
+
+     fetch('http://chefcops.com/by-route/5')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data); // Handle the received route information here
+    })
+    .catch(error => {
+        console.error('Fetch error:', error);
+    });
+
+        
+</html>
+   
+
+
+
+
+
